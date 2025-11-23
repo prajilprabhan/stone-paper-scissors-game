@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors</title>
+  <style>
+    .outcont {
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      overflow: hidden;
+      width: 80%;
+      background: linear-gradient(182deg, #cfc20e, #f76666);
+      height: 300px;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    span {
+      color: red;
+      font-weight: bold;
+    }
+
+    .innercont,
+    .scorediv {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    img {
+      height: 100px;
+      cursor: pointer;
+      border-radius: 10px;
+      animation: shakr 3s infinite;
+    }
+    @keyframes shakr {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      50% { transform: rotate(0deg); }
+      75% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    img:hover {
+      transform: scale(1.1);
+      transition: 0.2s;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #eachersult,
+    #gameresult {
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>ROCK PAPER SCISSORS</h1>
+  <div class="outcont">
+    <div class="container">
+      <div class="scorediv">
+        <span id="score1">User : 0</span>
+        <span id="score2">Computer : 0</span>
+        <span style="color:black" id="round">Round : 0</span>
+      </div>
+
+      <br><br>
+
+      <div class="innercont">
+        <button onclick="gamef(0)"><img src="stone.png" alt="Rock"></button>
+        <button onclick="gamef(1)"><img src="paper.png" alt="Paper"></button>
+        <button onclick="gamef(2)"><img src="scissors.png" alt="Scissors"></button>
+      </div>
+
+      <br>
+
+      <p id="userch" style="display:inline;"></p>
+      <p id="compch" style="display:inline;"></p>
+      <p id="eachresult"></p>
+      <p id="gameresult"></p>
+    </div>
+  </div>
+
+  <script>
+    let round = 0;
+    let user = 0, computer = 0;
+    const obj = ["Rock", "Paper", "Scissors"];
+
+    function gamef(num) {
+      document.getElementById("gameresult").innerHTML = "";
+      let game = Math.floor(Math.random() * 3);
+
+      if (num === game) {
+        document.getElementById("eachresult").innerHTML = "Draw!";
+        round++;
+      } else if (
+        (num === 0 && game === 2) ||
+        (num === 1 && game === 0) ||
+        (num === 2 && game === 1)
+      ) {
+        document.getElementById("eachresult").innerHTML = "You Win!";
+        user++;
+        round++;
+      } else {
+        document.getElementById("eachresult").innerHTML = "You Lose!";
+        computer++;
+        round++;
+      }
+
+      document.getElementById("userch").innerHTML = "Your Choice: " + obj[num];
+      document.getElementById("compch").innerHTML = " , Computer Choice: " + obj[game];
+      document.getElementById("score1").innerHTML = "User : " + user;
+      document.getElementById("score2").innerHTML = "Computer : " + computer;
+      document.getElementById("round").innerHTML = "Round : " + round;
+
+      if (user === 5 || computer === 5) {
+        if (user > computer) {
+          document.getElementById("gameresult").innerHTML =
+            "After " + round + " ROUNDS, You Win! Game Over!";
+          document.getElementById("gameresult").style.color = "green";
+        } else {
+          document.getElementById("gameresult").innerHTML =
+            "After " + round + " ROUNDS, You Lose! Game Over!";
+          document.getElementById("gameresult").style.color = "red";
+        }
+        computer = 0;
+        round = 0;
+        user = 0;
+      }
+    }
+  </script>
+</body>
+</html>
